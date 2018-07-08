@@ -1,7 +1,7 @@
 package gravitationalnbodyproblem.barneshut.sequential;
 
-import gravitationalnbodyproblem.Body;
 import gravitationalnbodyproblem.GalaxyJPanel;
+import gravitationalnbodyproblem.barneshut.BHBody;
 import gravitationalnbodyproblem.barneshut.BHTree;
 import gravitationalnbodyproblem.barneshut.Quadrant;
 
@@ -16,7 +16,7 @@ import static gravitationalnbodyproblem.Constants.FILE_NAME;
 
 public class GNBPBarnesHut extends JFrame {
 
-    private Body bodies[];
+    private BHBody bodies[];
     private Quadrant quadrant;
 
     public GNBPBarnesHut() throws Exception {
@@ -27,7 +27,7 @@ public class GNBPBarnesHut extends JFrame {
         scanner.useLocale(Locale.US);
 
         int numBodies = scanner.nextInt();
-        bodies = new Body[numBodies];
+        bodies = new BHBody[numBodies];
         double quadrantSize = scanner.nextDouble();
         quadrant = new Quadrant(0, 0, quadrantSize * 2);
 
@@ -43,7 +43,7 @@ public class GNBPBarnesHut extends JFrame {
             vy = scanner.nextDouble();
             mass = scanner.nextDouble();
             new Color(scanner.nextInt(), scanner.nextInt(), scanner.nextInt()); // TODO: use color
-            bodies[n] = new Body(px, py, vx, vy, mass);
+            bodies[n] = new BHBody(px, py, vx, vy, mass);
             n++;
         }
 

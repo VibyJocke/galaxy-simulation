@@ -1,7 +1,7 @@
 package gravitationalnbodyproblem.barneshut.parallel;
 
 import static gravitationalnbodyproblem.Constants.DT;
-import static gravitationalnbodyproblem.barneshut.parallel.GNBPBarnesHutParallel.NUM_THREADS;
+import static gravitationalnbodyproblem.Constants.NUM_THREADS;
 
 public class Worker extends Thread {
 

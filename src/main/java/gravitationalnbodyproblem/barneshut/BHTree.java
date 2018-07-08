@@ -1,7 +1,5 @@
 package gravitationalnbodyproblem.barneshut;
 
-import gravitationalnbodyproblem.Body;
-
 /**
  * Object for holding quadrants in a tree structure, to be manipulated and traversed.
  * Each BHTree represents a quadrant and a center of mass, in the form of a body.
@@ -10,7 +8,7 @@ public class BHTree {
 
     private static final double FAR_LIMIT = 1;
 
-    private Body body;              //The body of the current node.
+    private BHBody body;              //The body of the current node.
     private Quadrant quadrant;      //The quadrant of the current node.
     private BHTree NW, NE, SW, SE;  //Tree representing a quadrant.
 
@@ -32,11 +30,11 @@ public class BHTree {
     /*
      * Recursively inserts bodies into the tree by starting with the current one.
      */
-    public void insert(Body b) {
+    public void insert(BHBody b) {
         if (body == null) {
             body = b;
         } else if (!this.isExternal(this)) {
-            body = Body.combine(body, b);
+            body = BHBody.combine(body, b);
             Quadrant nw = quadrant.NW();
             if (b.in(nw)) {
                 if (NW == null) {
@@ -105,7 +103,7 @@ public class BHTree {
      * is far enough to be approximated is encountered, and do force calculations
      * for that body.
      */
-    public void updateForce(Body b) {
+    public void updateForce(BHBody b) {
         if (isExternal(this)) {
             if (body != b) {
                 b.addForce(body);

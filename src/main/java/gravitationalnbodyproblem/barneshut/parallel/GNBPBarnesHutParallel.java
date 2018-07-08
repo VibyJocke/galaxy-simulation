@@ -1,7 +1,7 @@
 package gravitationalnbodyproblem.barneshut.parallel;
 
-import gravitationalnbodyproblem.Body;
 import gravitationalnbodyproblem.GalaxyJPanel;
+import gravitationalnbodyproblem.barneshut.BHBody;
 import gravitationalnbodyproblem.barneshut.BHTree;
 import gravitationalnbodyproblem.barneshut.Quadrant;
 
@@ -21,7 +21,7 @@ public class GNBPBarnesHutParallel extends JFrame {
     public BHTree bhtTree;
     public CyclicBarrier barrier;
     public GalaxyJPanel galaxyJPanel;
-    public Body bodies[];
+    public BHBody bodies[];
     public Quadrant quadrant;
 
     public GNBPBarnesHutParallel() throws Exception {
@@ -32,7 +32,7 @@ public class GNBPBarnesHutParallel extends JFrame {
         scanner.useLocale(Locale.US);
 
         numBodies = scanner.nextInt();
-        bodies = new Body[numBodies];
+        bodies = new BHBody[numBodies];
         double quadSize = scanner.nextDouble();
         quadrant = new Quadrant(0, 0, quadSize * 2);
 
@@ -47,7 +47,7 @@ public class GNBPBarnesHutParallel extends JFrame {
             double vy = scanner.nextDouble();
             double mass = scanner.nextDouble();
             new Color(scanner.nextInt(), scanner.nextInt(), scanner.nextInt()); // TODO: use color
-            bodies[n] = new Body(px, py, vx, vy, mass);
+            bodies[n] = new BHBody(px, py, vx, vy, mass);
             n++;
         }
 
