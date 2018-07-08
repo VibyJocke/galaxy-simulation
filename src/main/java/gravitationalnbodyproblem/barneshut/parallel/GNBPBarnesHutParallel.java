@@ -16,10 +16,11 @@ import static gravitationalnbodyproblem.Constants.NUM_THREADS;
 
 public class GNBPBarnesHutParallel extends JFrame {
 
-    public BHTree bhtTree;
-    public GalaxyJPanel galaxyJPanel;
-    public BHBody bodies[];
-    public Quadrant quadrant;
+    public final Quadrant quadrant;
+    public final GalaxyJPanel galaxyJPanel;
+
+    public volatile BHTree bhtTree;
+    public volatile BHBody bodies[];
 
     public GNBPBarnesHutParallel() throws Exception {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

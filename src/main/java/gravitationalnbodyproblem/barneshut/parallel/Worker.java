@@ -50,6 +50,8 @@ public class Worker extends Thread {
                     }
                 }
 
+                BARRIER.await();
+
                 if (id == 0) {
                     ref.galaxyJPanel.redraw();
                 }
