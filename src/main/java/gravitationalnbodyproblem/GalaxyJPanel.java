@@ -1,8 +1,12 @@
-package gravitationalnbodyproblem.barneshut;
+package gravitationalnbodyproblem;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
+/**
+ * The graphical part of the project, responsible for displaying the generated
+ * body positions in space.
+ */
 public class GalaxyJPanel extends JPanel {
 
     private Body[] bodies;
@@ -20,6 +24,7 @@ public class GalaxyJPanel extends JPanel {
         repaint();
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 

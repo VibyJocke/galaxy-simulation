@@ -1,5 +1,7 @@
 package gravitationalnbodyproblem.barneshut;
 
+import gravitationalnbodyproblem.Body;
+
 /**
  * Object for holding quadrants in a tree structure, to be manipulated and traversed.
  * Each BHTree represents a quadrant and a center of mass, in the form of a body.
@@ -9,7 +11,7 @@ public class BHTree {
     private static final double FAR_LIMIT = 1;
 
     private Body body;              //The body of the current node.
-    private Quadrant quadrant;          //The quadrant of the current node.
+    private Quadrant quadrant;      //The quadrant of the current node.
     private BHTree NW, NE, SW, SE;  //Tree representing a quadrant.
 
     /*

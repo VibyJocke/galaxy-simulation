@@ -1,5 +1,8 @@
 package gravitationalnbodyproblem.brute;
 
+import gravitationalnbodyproblem.Body;
+import gravitationalnbodyproblem.GalaxyJPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -12,8 +15,7 @@ public abstract class AbstractGNBP extends JFrame {
 
     public int numBodies;
     public GalaxyJPanel galaxyJPanel;
-    public Point position[], velocity[], force[];
-    public double mass[];
+    public Body bodies[];
 
     public AbstractGNBP() throws Exception {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -23,10 +25,7 @@ public abstract class AbstractGNBP extends JFrame {
         scanner.useLocale(Locale.US);
 
         numBodies = scanner.nextInt();
-        position = new Point[numBodies];
-        velocity = new Point[numBodies];
-        force = new Point[numBodies];
-        mass = new double[numBodies];
+        bodies = new Body[numBodies];
         double quadSize = scanner.nextDouble();
 
         System.out.println("The total number of bodies: " + numBodies);
@@ -36,20 +35,17 @@ public abstract class AbstractGNBP extends JFrame {
         while (scanner.hasNextDouble()) {
             double px = scanner.nextDouble();
             double py = scanner.nextDouble();
-            position[n] = new Point(px, py);
             double vx = scanner.nextDouble();
             double vy = scanner.nextDouble();
-            velocity[n] = new Point(vx, vy);
             double mass = scanner.nextDouble();
-            force[n] = new Point(0, 0);
-            this.mass[n] = mass;
             new Color(scanner.nextInt(), scanner.nextInt(), scanner.nextInt()); // TODO: use color
+            bodies[n] = new Body(px, py, vx, vy, mass);
             n++;
         }
 
         setExtendedState(MAXIMIZED_BOTH);
         setVisible(true);
-        galaxyJPanel = new GalaxyJPanel(position, mass, quadSize);
+        galaxyJPanel = new GalaxyJPanel(bodies, quadSize);
         add(galaxyJPanel, "Center");
         repaint();
         validate();

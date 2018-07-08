@@ -1,9 +1,9 @@
 package gravitationalnbodyproblem.barneshut.sequential;
 
+import gravitationalnbodyproblem.Body;
+import gravitationalnbodyproblem.GalaxyJPanel;
 import gravitationalnbodyproblem.barneshut.BHTree;
-import gravitationalnbodyproblem.barneshut.Body;
 import gravitationalnbodyproblem.barneshut.Quadrant;
-import gravitationalnbodyproblem.barneshut.GalaxyJPanel;
 
 import javax.swing.*;
 import java.awt.*;

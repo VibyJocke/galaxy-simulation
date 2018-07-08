@@ -1,9 +1,9 @@
 package gravitationalnbodyproblem.barneshut.parallel;
 
+import gravitationalnbodyproblem.Body;
+import gravitationalnbodyproblem.GalaxyJPanel;
 import gravitationalnbodyproblem.barneshut.BHTree;
-import gravitationalnbodyproblem.barneshut.Body;
 import gravitationalnbodyproblem.barneshut.Quadrant;
-import gravitationalnbodyproblem.barneshut.GalaxyJPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,14 +13,11 @@ import java.util.Scanner;
 import java.util.concurrent.CyclicBarrier;
 
 import static gravitationalnbodyproblem.Constants.FILE_NAME;
+import static gravitationalnbodyproblem.Constants.NUM_THREADS;
 
 public class GNBPBarnesHutParallel extends JFrame {
 
-    public static final int NUM_THREADS = 8;
-
-    private double quadSize;
     public int numBodies;
-
     public BHTree bhtTree;
     public CyclicBarrier barrier;
     public GalaxyJPanel galaxyJPanel;
@@ -31,32 +28,28 @@ public class GNBPBarnesHutParallel extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("N-Body Simulator using Barnes Hut with " + NUM_THREADS + " threads   -   By Joakim Lahtinen TIDAB3 2012");
 
-        bodies = new Body[numBodies];
-        quadrant = new Quadrant(0, 0, 2E06);
-
         Scanner scanner = new Scanner(new File(FILE_NAME));
         scanner.useLocale(Locale.US);
 
         numBodies = scanner.nextInt();
         bodies = new Body[numBodies];
-        System.out.println("The total number of bodies: " + numBodies);
-        quadSize = scanner.nextDouble();
+        double quadSize = scanner.nextDouble();
         quadrant = new Quadrant(0, 0, quadSize * 2);
+
+        System.out.println("The total number of bodies: " + numBodies);
         System.out.println("The quadrant size is: " + quadrant.length());
 
-        double px, py, vx, vy, mass;
         int n = 0;
         while (scanner.hasNextDouble()) {
-            px = scanner.nextDouble();
-            py = scanner.nextDouble();
-            vx = scanner.nextDouble();
-            vy = scanner.nextDouble();
-            mass = scanner.nextDouble();
+            double px = scanner.nextDouble();
+            double py = scanner.nextDouble();
+            double vx = scanner.nextDouble();
+            double vy = scanner.nextDouble();
+            double mass = scanner.nextDouble();
             new Color(scanner.nextInt(), scanner.nextInt(), scanner.nextInt()); // TODO: use color
             bodies[n] = new Body(px, py, vx, vy, mass);
             n++;
         }
-
 
         setExtendedState(MAXIMIZED_BOTH);
         setVisible(true);

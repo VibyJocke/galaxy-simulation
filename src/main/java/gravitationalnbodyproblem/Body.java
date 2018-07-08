@@ -1,4 +1,6 @@
-package gravitationalnbodyproblem.barneshut;
+package gravitationalnbodyproblem;
+
+import gravitationalnbodyproblem.barneshut.Quadrant;
 
 import static gravitationalnbodyproblem.Constants.G;
 
@@ -7,8 +9,7 @@ import static gravitationalnbodyproblem.Constants.G;
  */
 public class Body {
 
-    public double px, py, m;
-    private double vy, vx, fx, fy;
+    public double px, py, m, vy, vx, fx, fy;
 
     public Body(double px, double py, double vx, double vy, double mass) {
         this.px = px;
