@@ -34,14 +34,13 @@ public class GNBPBarnesHut extends JFrame {
         System.out.println("The total number of bodies: " + numBodies);
         System.out.println("The quadrant size is: " + quadrant.length());
 
-        double px, py, vx, vy, mass;
         int n = 0;
         while (scanner.hasNextDouble()) {
-            px = scanner.nextDouble();
-            py = scanner.nextDouble();
-            vx = scanner.nextDouble();
-            vy = scanner.nextDouble();
-            mass = scanner.nextDouble();
+            double px = scanner.nextDouble();
+            double py = scanner.nextDouble();
+            double vx = scanner.nextDouble();
+            double vy = scanner.nextDouble();
+            double mass = scanner.nextDouble();
             new Color(scanner.nextInt(), scanner.nextInt(), scanner.nextInt()); // TODO: use color
             bodies[n] = new BHBody(px, py, vx, vy, mass);
             n++;

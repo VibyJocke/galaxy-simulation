@@ -1,9 +1,15 @@
 package gravitationalnbodyproblem.barneshut.parallel;
 
+import gravitationalnbodyproblem.barneshut.BHTree;
+
+import java.util.concurrent.CyclicBarrier;
+
 import static gravitationalnbodyproblem.Constants.DT;
 import static gravitationalnbodyproblem.Constants.NUM_THREADS;
 
 public class Worker extends Thread {
+
+    private static final CyclicBarrier BARRIER = new CyclicBarrier(NUM_THREADS);
 
     private final GNBPBarnesHutParallel ref;
     private final int id;
@@ -24,21 +30,21 @@ public class Worker extends Thread {
         while (true) {
             try {
                 if (id == 0) {
-                    ref.makeTree();
+                    makeTree();
                 }
 
-                ref.barrier.await();
+                BARRIER.await();
 
-                for (int i = id; i < ref.numBodies; i += NUM_THREADS) {
+                for (int i = id; i < ref.bodies.length; i += NUM_THREADS) {
                     ref.bodies[i].resetForce();
                     if (ref.bodies[i].in(ref.quadrant)) {
                         ref.bhtTree.updateForce(ref.bodies[i]);
                     }
                 }
 
-                ref.barrier.await();
+                BARRIER.await();
 
-                for (int i = id; i < ref.numBodies; i += NUM_THREADS) {
+                for (int i = id; i < ref.bodies.length; i += NUM_THREADS) {
                     if (ref.bodies[i].in(ref.quadrant)) {
                         ref.bodies[i].update(DT);
                     }
@@ -49,6 +55,18 @@ public class Worker extends Thread {
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
+            }
+        }
+    }
+
+    /*
+     * Builds the tree by inserting bodies at the root.
+     */
+    private void makeTree() {
+        ref.bhtTree = new BHTree(ref.quadrant);
+        for (int i = 0; i < ref.bodies.length; i++) {
+            if (ref.bodies[i].in(ref.quadrant)) {
+                ref.bhtTree.insert(ref.bodies[i]);
             }
         }
     }
