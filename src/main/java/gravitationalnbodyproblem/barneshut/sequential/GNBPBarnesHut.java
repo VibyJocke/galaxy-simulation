@@ -16,8 +16,8 @@ import static gravitationalnbodyproblem.Constants.FILE_NAME;
 
 public class GNBPBarnesHut extends JFrame {
 
-    private BHBody bodies[];
-    private Quadrant quadrant;
+    private final BHBody bodies[];
+    private final Quadrant quadrant;
 
     public GNBPBarnesHut() throws Exception {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

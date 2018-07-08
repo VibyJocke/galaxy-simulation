@@ -18,9 +18,9 @@ public class GNBPBarnesHutParallel extends JFrame {
 
     public final Quadrant quadrant;
     public final GalaxyJPanel galaxyJPanel;
+    public final BHBody bodies[];
 
     public volatile BHTree bhtTree;
-    public volatile BHBody bodies[];
 
     public GNBPBarnesHutParallel() throws Exception {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
