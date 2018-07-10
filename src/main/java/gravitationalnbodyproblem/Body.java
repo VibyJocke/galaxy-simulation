@@ -5,17 +5,7 @@ package gravitationalnbodyproblem;
  */
 public class Body {
 
-    // Position
-    public double px;
-    public double py;
-    // Velocity
-    public double vy;
-    public double vx;
-    // Force
-    public double fx;
-    public double fy;
-    // Mass
-    public double m;
+    public double px, py, vy, vx, fx, fy, m;
 
     public Body(double px, double py, double vx, double vy, double mass) {
         this.px = px;

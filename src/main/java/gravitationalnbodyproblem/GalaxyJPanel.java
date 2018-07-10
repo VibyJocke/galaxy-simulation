@@ -35,10 +35,10 @@ public class GalaxyJPanel extends JPanel {
 
         g.setColor(Color.white);
 
-        for (int i = 0; i < bodies.length; i++) {
-            Double px = bodies[i].px / (quadSize / 1000) + (screenSize.width / 2);
-            Double py = bodies[i].py / (quadSize / 1000) + (screenSize.height / 2);
-            Double size = Math.sqrt(Math.sqrt(bodies[i].m / 1E22)) + 2;
+        for (Body body : bodies) {
+            Double px = body.px / (quadSize / 1000) + (screenSize.width / 2);
+            Double py = body.py / (quadSize / 1000) + (screenSize.height / 2);
+            Double size = Math.sqrt(Math.sqrt(body.m / 1E22)) + 2;
             g.fillOval(
                     px.intValue() - (size.intValue() / 2),
                     py.intValue() - (size.intValue() / 2),

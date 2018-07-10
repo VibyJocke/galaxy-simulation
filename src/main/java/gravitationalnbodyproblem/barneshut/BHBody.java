@@ -58,7 +58,7 @@ public class BHBody extends Body {
         double d1 = (b1.px * b1.m + b2.px * b2.m) / (b1.m + b2.m);
         double d2 = (b1.py * b1.m + b2.py * b2.m) / (b1.m + b2.m);
         double d3 = b1.m + b2.m;
-        return new BHBody(d1, d2, 0.0D, 0.0D, d3);
+        return new BHBody(d1, d2, 0.0, 0.0, d3);
     }
 
     /*

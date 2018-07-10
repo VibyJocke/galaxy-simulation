@@ -21,13 +21,6 @@ public class BHTree {
     }
 
     /*
-     * Checks if given BHTree is a leaf node (i.e. all quadrant-references are null).
-     */
-    public Boolean isExternal(BHTree t) {
-        return t.NW == null && t.NE == null && t.SW == null && t.SE == null;
-    }
-
-    /*
      * Recursively inserts bodies into the tree by starting with the current one.
      */
     public void insert(BHBody b) {
@@ -124,5 +117,12 @@ public class BHTree {
                 NE.updateForce(b);
             }
         }
+    }
+
+    /*
+     * Checks if given BHTree is a leaf node (i.e. all quadrant-references are null).
+     */
+    private Boolean isExternal(BHTree t) {
+        return t.NW == null && t.NE == null && t.SW == null && t.SE == null;
     }
 }
