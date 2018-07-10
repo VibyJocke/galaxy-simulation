@@ -9,13 +9,16 @@ import java.io.File;
 import java.util.Locale;
 import java.util.Scanner;
 
+import static gravitationalnbodyproblem.Constants.DT;
 import static gravitationalnbodyproblem.Constants.FILE_NAME;
+import static gravitationalnbodyproblem.Constants.G;
 
 public abstract class AbstractGNBP extends JFrame {
 
-    public int numBodies;
-    public GalaxyJPanel galaxyJPanel;
-    public Body bodies[];
+    private final int numBodies;
+    private final Body bodies[];
+
+    public final GalaxyJPanel galaxyJPanel;
 
     public AbstractGNBP() throws Exception {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -58,10 +61,37 @@ public abstract class AbstractGNBP extends JFrame {
     /**
      * Calculates forces acting between one body (outer loop) and another bodies (inner loop).
      */
-    public abstract void calculateForces(int threadNum);
+    public void calculateForces(int threadNum, int numThreads) {
+        for (int i = threadNum; i < numBodies; i += numThreads) {
+            for (int j = i + 1; j < numBodies; ++j) {
+                double distance = Math.sqrt(Math.pow(bodies[i].px - bodies[j].px, 2) + Math.pow(bodies[i].py - bodies[j].py, 2));
+                double magnitude = (G * bodies[i].m * bodies[j].m) / Math.pow(distance, 2);
+                double dx = bodies[j].px - bodies[i].px;
+                double dy = bodies[j].py - bodies[i].py;
+                bodies[i].fx = bodies[i].fx + magnitude * dx / distance;
+                bodies[j].fx = bodies[j].fx - magnitude * dx / distance;
+                bodies[i].fy = bodies[i].fy + magnitude * dy / distance;
+                bodies[j].fy = bodies[j].fy - magnitude * dy / distance;
+            }
+        }
+    }
 
     /**
      * Moves bodies based on current force, speed and mass.
      */
-    public abstract void moveBodies(int threadNum);
+    public void moveBodies(int threadNum, int numThreads) {
+        for (int i = threadNum; i < numBodies; i += numThreads) {
+            double dvx = bodies[i].fx / bodies[i].m * DT;
+            double dvy = bodies[i].fy / bodies[i].m * DT;
+            double dpx = (bodies[i].vx + dvx / 2) * DT;
+            double dpy = (bodies[i].vy + dvy / 2) * DT;
+
+            bodies[i].vx = bodies[i].vx + dvx;
+            bodies[i].vy = bodies[i].vy + dvy;
+            bodies[i].px = bodies[i].px + dpx;
+            bodies[i].py = bodies[i].py + dpy;
+            bodies[i].fx = 0.0;
+            bodies[i].fy = 0.0;
+        }
+    }
 }

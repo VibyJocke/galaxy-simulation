@@ -55,8 +55,8 @@ public class Worker extends Thread {
                 if (id == 0) {
                     ref.galaxyJPanel.redraw();
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

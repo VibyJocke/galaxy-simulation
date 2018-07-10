@@ -1,16 +1,22 @@
 package gravitationalnbodyproblem.brute.parallel;
 
+import java.util.concurrent.CyclicBarrier;
+
+import static gravitationalnbodyproblem.Constants.NUM_THREADS;
+
 /**
  * A thread that performs simulation work.
  */
 public class Worker extends Thread {
 
+    private static final CyclicBarrier BARRIER = new CyclicBarrier(NUM_THREADS);
+
     private final GNBPParallel ref;
-    private final int time;
+    private final int tid;
 
     public Worker(GNBPParallel ref, int id) {
         this.ref = ref;
-        time = id;
+        tid = id;
     }
 
     /**
@@ -22,15 +28,19 @@ public class Worker extends Thread {
     public void run() {
         while (true) {
             try {
-                ref.calculateForces(time);
-                ref.barrier.await();
-                ref.moveBodies(time);
-                ref.barrier.await();
-                if (time == 0) {
+                ref.calculateForces(tid, NUM_THREADS);
+
+                BARRIER.await();
+
+                ref.moveBodies(tid, NUM_THREADS);
+
+                BARRIER.await();
+
+                if (tid == 0) {
                     ref.galaxyJPanel.redraw();
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
